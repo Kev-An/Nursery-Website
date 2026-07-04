@@ -1,0 +1,84 @@
+:host {
+    display: block;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+
+    padding: 22px 64px;
+
+    background: rgba(243, 239, 230, 0.95);
+    backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid #e4ddcd;
+}
+
+nav a {
+    position: relative;
+
+    color: #263626;
+    text-decoration: none;
+
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    transition: color .2s ease;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+
+    width: 0;
+    height: 2px;
+
+    background: #bd6538;
+    transition: width .25s ease;
+}
+
+nav a:hover {
+    color: #bd6538;
+}
+
+nav a:hover::after,
+nav a.active {
+    color: #bd6538;
+}
+
+nav a.active::after {
+    width: 100%;
+}
+
+/* Angular Router Active Link */
+nav a[aria-current="page"]::after,
+nav a[aria-current="page"] {
+    color: #bd6538;
+}
+
+nav a[aria-current="page"]::after {
+    width: 100%;
+}
+
+@media (max-width: 860px) {
+    nav {
+        justify-content: space-around;
+        gap: 24px;
+        padding: 18px 24px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+}

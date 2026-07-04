@@ -1,0 +1,44 @@
+<section class="shop-section">
+  <header class="shop-header">
+    <div class="header-left">
+      <p class="eyebrow">— CURRENT STOCK</p>
+      <h1 class="headline">Featured Plants</h1>
+    </div>
+    <div class="search-bar">
+  <i class="fa-solid fa-magnifying-glass"></i>
+
+  <input
+    type="text"
+    placeholder="SEARCH PLANTS..."
+  />
+
+  <button class="search-btn">
+    SEARCH
+  </button>
+</div>
+  </header>
+
+  <div class="plant-grid">
+    <article class="plant-card" *ngFor="let plant of plants">
+      <div class="plant-media">
+        <img [src]="plant.imageUrl" [alt]="plant.name" [style.object-position]="plant.imagePosition ?? 'center'" />
+        <span class="badge">{{ plant.badge }}</span>
+
+        <button class="add-to-cart" type="button" (click)="addToCart(plant)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="plant-info">
+        <div class="plant-title-row">
+          <h2 class="plant-name">{{ plant.name }}</h2>
+          <span class="plant-price">${{ plant.price }}</span>
+        </div>
+        <p class="plant-latin">{{ plant.latinName }}</p>
+        <p class="plant-meta">
+          {{ plant.potSize }} · {{ plant.light }} • {{ plant.water }}
+        </p>
+      </div>
+    </article>
+  </div>
+</section>
