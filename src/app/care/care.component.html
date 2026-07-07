@@ -1,0 +1,28 @@
+<section class="care-section">
+
+    <p class="subtitle">— PLANT CARE —</p>
+
+    <h2 class="title">The Fundamentals</h2>
+
+    <div class="cards">
+
+        @for (tip of careTips; track tip.title) {
+
+        <div class="card">
+
+            <div class="top">
+                <span class="number">{{tip.number}}</span>
+                <span class="icon">{{tip.icon}}</span>
+            </div>
+
+            <h3>{{tip.title}}</h3>
+
+            <p>{{tip.description}}</p>
+
+        </div>
+
+        }
+
+    </div>
+
+</section>
