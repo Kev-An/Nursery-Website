@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Roboto:wght@400;500&display=swap');
+
+:host {
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F4EF;
+    min-height: 100vh;
+}
+
+/* Navbar Layout Settings */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #213C31;
+    color: white;
+    padding: 15px 40px;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 0.9rem;
+    font-family: monospace;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.wishlist-icon,
+.cart-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: #C66B4F;
+    color: white;
+    font-size: 0.7rem;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: 500;
+}
+
+/* Wishlist Layout Wrapper */
+.wishlist-container {
+    padding: 50px 80px;
+}
+
+.subtitle {
+    color: #C66B4F;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #213C31;
+    margin-top: 0;
+    margin-bottom: 50px;
+    font-weight: 500;
+}
+
+.product-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Product Card Grid Item Elements */
+.product-card {
+    background: white;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Forces image blocks to remain completely square */
+.image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #213C31;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-details {
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-name {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #213C31;
+}
+
+.product-price {
+    margin: 0;
+    color: #C66B4F;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.move-to-cart-btn {
+    background-color: #C66B4F;
+    color: white;
+    border: none;
+    padding: 14px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* Centered Empty State Interface Formatting */
+.empty-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 50vh;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.empty-heart-icon {
+    color: #b0b0b0;
+    margin-bottom: 20px;
+}
+
+.empty-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #213C31;
+    margin: 0 0 15px 0;
+    font-weight: 500;
+}
+
+.empty-subtitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #666;
+    margin: 0 0 35px 0;
+}
+
+.browse-btn {
+    background-color: #C66B4F;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+}

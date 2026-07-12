@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Roboto:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap');
+
+:host {
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F4EF;
+    min-height: 100vh;
+}
+
+/* Navbar (Same as Wishlist) */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #213C31;
+    color: white;
+    padding: 15px 40px;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 0.9rem;
+    font-family: monospace;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.wishlist-icon,
+.cart-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: #C66B4F;
+    color: white;
+    font-size: 0.7rem;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+/* Main Cart Layout */
+.cart-container {
+    padding: 50px 80px;
+}
+
+.subtitle {
+    color: #C66B4F;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-family: 'Space Mono', monospace;
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #213C31;
+    margin-top: 0;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+.cart-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+}
+
+/* --- Left Column: Items List --- */
+.table-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: #666;
+    letter-spacing: 1px;
+}
+
+.table-header span:nth-child(2),
+.table-header span:nth-child(3),
+.table-header span:nth-child(4) {
+    text-align: center;
+}
+
+.cart-item-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.item-details-col {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    aspect-ratio: 1/1;
+}
+
+.item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-info h3 {
+    margin: 0 0 5px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #213C31;
+}
+
+.item-info p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #666;
+    font-family: 'Space Mono', monospace;
+}
+
+.item-qty-col {
+    display: flex;
+    justify-content: center;
+}
+
+.qty-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    background: white;
+}
+
+.qty-selector button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #333;
+}
+
+.qty-selector span {
+    padding: 0 15px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.item-unit-col {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.item-total-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-family: 'Space Mono', monospace;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.remove-btn:hover {
+    color: #333;
+}
+
+.continue-shopping {
+    display: inline-block;
+    margin-top: 40px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: #213C31;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Right Column: Order Summary --- */
+.summary-card {
+    background-color: white;
+    padding: 30px;
+    border: 1px solid #eee;
+}
+
+.summary-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #213C31;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.total-row {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #111;
+}
+
+.shipping-msg {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: #666;
+    margin: 20px 0;
+}
+
+.shipping-msg.success {
+    color: #213C31;
+}
+
+.promo-code-container {
+    margin-bottom: 25px;
+}
+
+.promo-code-container label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: #666;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.promo-input-group {
+    display: flex;
+}
+
+.promo-input-group input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-right: none;
+    background: #F9F9F9;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+}
+
+.apply-btn {
+    background-color: #213C31;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+.checkout-btn {
+    width: 100%;
+    background-color: #C66B4F;
+    color: white;
+    border: none;
+    padding: 18px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 20px;
+}
+
+.checkout-btn:hover {
+    background-color: #a8543a;
+}
+
+.trust-badges {
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: #888;
+    margin: 0;
+}
