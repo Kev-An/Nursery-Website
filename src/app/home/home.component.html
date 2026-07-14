@@ -1,1 +1,33 @@
-<p>home works!</p>
+<section class="hero" [style.background-image]="'url(' + heroImageUrl + ')'">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="eyebrow">{{ eyebrow }}</p>
+
+    <h1 class="headline">
+      <span
+        *ngFor="let line of headlineLines"
+        class="headline-line"
+        [class.accent]="line.style === 'accent'"
+      >{{ line.text }}</span>
+    </h1>
+
+    <p class="description">{{ description }}</p>
+
+    <div class="cta-row">
+      <button routerLink="/featured-plants" class="btn btn-primary" type="button" (click)="onPrimaryCta()">
+        {{ primaryCta }} <span class="chevron">›</span>
+      </button>
+      <button routerLink="/about" class="btn btn-secondary" type="button" (click)="onSecondaryCta()">
+        {{ secondaryCta }}
+      </button>
+    </div>
+  </div>
+
+  <ul class="stat-list">
+    <li class="stat-row" *ngFor="let stat of stats">
+      <span class="stat-index">{{ stat.index }}</span>
+      <span class="stat-label">{{ stat.label }}</span>
+    </li>
+  </ul>
+</section>
