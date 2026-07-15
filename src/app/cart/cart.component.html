@@ -1,105 +1,117 @@
-
-
 <main class="cart-container">
-    <div class="cart-header">
-        <p class="subtitle">- VERDANT & CO.</p>
-        <h1 class="title">&lt; Your Cart</h1>
+  <div class="cart-header">
+    <p class="subtitle">- VERDANT & CO.</p>
+    <h1 class="title">Your Cart</h1>
+  </div>
+
+  <div class="cart-layout">
+    <div class="cart-items-section">
+      <div class="table-header">
+        <span>ITEM</span>
+        <span>QTY</span>
+        <span>UNIT</span>
+        <span>TOTAL</span>
+      </div>
+
+      <div
+        class="cart-items-list"
+        *ngIf="cartService.items.length > 0; else emptyCart"
+      >
+        <div class="cart-item-row" *ngFor="let item of cartService.items">
+          <div class="item-details-col">
+            <div class="item-image">
+              <img [src]="item.imageUrl" [alt]="item.name" />
+            </div>
+            <div class="item-info">
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.variant }}</p>
+            </div>
+          </div>
+
+          <div class="item-qty-col">
+            <div class="qty-selector">
+              <button (click)="cartService.decrementQty(item)">-</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="cartService.incrementQty(item)">+</button>
+            </div>
+          </div>
+
+          <div class="item-unit-col">${{ item.price }}</div>
+
+          <div class="item-total-col">
+            <strong>${{ (item.price * item.quantity).toFixed(2) }}</strong>
+            <button
+              class="remove-btn"
+              (click)="cartService.removeFromCart(item)"
+            >
+              &#10005;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #emptyCart>
+        <p class="empty-msg">Your cart is empty.</p>
+      </ng-template>
+
+      <a class="continue-shopping" routerLink="/featured-plants"
+        >&lt; CONTINUE SHOPPING</a
+      >
     </div>
 
-    <div class="cart-layout">
-        <div class="cart-items-section">
-            <div class="table-header">
-                <span>ITEM</span>
-                <span>QTY</span>
-                <span>UNIT</span>
-                <span>TOTAL</span>
-            </div>
+    <div class="order-summary-section">
+      <div class="summary-card">
+        <h2>Order Summary</h2>
 
-            <div class="cart-items-list" *ngIf="cartService.items.length > 0; else emptyCart">
-                <div class="cart-item-row" *ngFor="let item of cartService.items">
-                    <div class="item-details-col">
-                        <div class="item-image">
-                            <img [src]="item.imageUrl" [alt]="item.name">
-                        </div>
-                        <div class="item-info">
-                            <h3>{{ item.name }}</h3>
-                            <p>{{ item.variant }}</p>
-                        </div>
-                    </div>
-
-                    <div class="item-qty-col">
-                        <div class="qty-selector">
-                            <button (click)="cartService.decrementQty(item)">-</button>
-                            <span>{{ item.quantity }}</span>
-                            <button (click)="cartService.incrementQty(item)">+</button>
-                        </div>
-                    </div>
-
-                    <div class="item-unit-col">
-                        ${{ item.price }}
-                    </div>
-
-                    <div class="item-total-col">
-                        <strong>${{ (item.price * item.quantity).toFixed(2) }}</strong>
-                        <button class="remove-btn" (click)="cartService.removeFromCart(item)">
-                            &#10005;
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <ng-template #emptyCart>
-                <p class="empty-msg">Your cart is empty.</p>
-            </ng-template>
-
-            <a class="continue-shopping" routerLink="/featured-plants">&lt; CONTINUE SHOPPING</a>
+        <div class="summary-row">
+          <span>
+            Subtotal ({{ cartService.items.length }} item{{
+              cartService.items.length !== 1 ? "s" : ""
+            }})
+          </span>
         </div>
 
-        <div class="order-summary-section">
-            <div class="summary-card">
-                <h2>Order Summary</h2>
-
-                <div class="summary-row">
-                    <span>
-                        Subtotal ({{ cartService.items.length }}
-                        item{{ cartService.items.length !== 1 ? 's' : '' }})
-                    </span>
-                </div>
-
-                <div class="summary-row">
-                    <span>Shipping</span>
-                    <span>${{ cartService.shippingCost.toFixed(2) }}</span>
-                </div>
-
-                <hr class="divider">
-
-                <div class="summary-row total-row">
-                    <span>Total</span>
-                    ${{ cartService.getTotal().toFixed(2) }}
-                </div>
-
-                <p class="shipping-msg" *ngIf="cartService.getAmountToFreeShipping() > 0">
-                    Add ${{ cartService.getAmountToFreeShipping().toFixed(2) }} more for free shipping.
-                </p>
-
-                <p class="shipping-msg success" *ngIf="cartService.getAmountToFreeShipping() === 0">
-                    You've unlocked free shipping!
-                </p>
-
-                <div class="promo-code-container">
-                    <label>PROMO CODE</label>
-                    <div class="promo-input-group">
-                        <input type="text" placeholder="VERDANT20">
-                        <button class="apply-btn">APPLY</button>
-                    </div>
-                </div>
-
-                <button class="checkout-btn">PROCEED TO CHECKOUT &gt;</button>
-
-                <p class="trust-badges">
-                    Secure checkout &middot; 30-day return guarantee
-                </p>
-            </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>${{ cartService.shippingCost.toFixed(2) }}</span>
         </div>
+
+        <hr class="divider" />
+
+        <div class="summary-row total-row">
+          <span>Total</span>
+          ${{ cartService.getTotal().toFixed(2) }}
+        </div>
+
+        <p
+          class="shipping-msg"
+          *ngIf="cartService.getAmountToFreeShipping() > 0"
+        >
+          Add ${{ cartService.getAmountToFreeShipping().toFixed(2) }} more for
+          free shipping.
+        </p>
+
+        <p
+          class="shipping-msg success"
+          *ngIf="cartService.getAmountToFreeShipping() === 0"
+        >
+          You've unlocked free shipping!
+        </p>
+
+        <div class="promo-code-container">
+          <label>PROMO CODE</label>
+          <div class="promo-input-group">
+            <input type="text" placeholder="VERDANT20" />
+            <button class="apply-btn">APPLY</button>
+          </div>
+        </div>
+
+        <button class="checkout-btn">PROCEED TO CHECKOUT &gt;</button>
+
+        <p class="trust-badges">
+          Secure checkout &middot; 30-day return guarantee
+        </p>
+      </div>
     </div>
+  </div>
 </main>
