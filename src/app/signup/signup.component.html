@@ -1,0 +1,116 @@
+<section class="auth-body">
+  <div class="auth-visual" [style.background-image]="'url(' + visualImageUrl + ')'">
+    <div class="visual-overlay"></div>
+    <div class="visual-content">
+      <p class="visual-eyebrow">{{ visualEyebrow }}</p>
+      <p class="visual-quote">{{ visualQuote }}</p>
+    </div>
+  </div>
+
+  <div class="auth-form-panel">
+    <div class="auth-card">
+      <p class="eyebrow">— {{ eyebrow }}</p>
+      <h1 class="headline">{{ headline }}</h1>
+      <p class="subtext">{{ subtext }}</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+          <label for="fullName">FULL NAME</label>
+          <input
+            id="fullName"
+            type="text"
+            formControlName="fullName"
+            placeholder="Jamie Rivera"
+            [class.invalid]="f['fullName'].invalid && f['fullName'].touched"
+          />
+          <p class="field-error" *ngIf="f['fullName'].invalid && f['fullName'].touched">
+            <ng-container *ngIf="f['fullName'].errors?.['required']">Name is required.</ng-container>
+            <ng-container *ngIf="f['fullName'].errors?.['minlength']">Enter at least 2 characters.</ng-container>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="email">EMAIL</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="you@example.com"
+            [class.invalid]="f['email'].invalid && f['email'].touched"
+          />
+          <p class="field-error" *ngIf="f['email'].invalid && f['email'].touched">
+            <ng-container *ngIf="f['email'].errors?.['required']">Email is required.</ng-container>
+            <ng-container *ngIf="f['email'].errors?.['email']">Enter a valid email address.</ng-container>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="password">PASSWORD</label>
+          <div class="input-with-action">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="At least 8 characters"
+              [class.invalid]="f['password'].invalid && f['password'].touched"
+            />
+            <button
+              type="button"
+              class="ghost-toggle"
+              (click)="togglePassword()"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            >
+              {{ showPassword ? 'HIDE' : 'SHOW' }}
+            </button>
+          </div>
+          <p class="field-error" *ngIf="f['password'].invalid && f['password'].touched">
+            <ng-container *ngIf="f['password'].errors?.['required']">Password is required.</ng-container>
+            <ng-container *ngIf="f['password'].errors?.['minlength']">Must be at least 8 characters.</ng-container>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">CONFIRM PASSWORD</label>
+          <div class="input-with-action">
+            <input
+              id="confirmPassword"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="Re-enter your password"
+              [class.invalid]="(f['confirmPassword'].invalid || passwordsMismatch) && f['confirmPassword'].touched"
+            />
+            <button
+              type="button"
+              class="ghost-toggle"
+              (click)="toggleConfirmPassword()"
+              [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'"
+            >
+              {{ showConfirmPassword ? 'HIDE' : 'SHOW' }}
+            </button>
+          </div>
+          <p class="field-error" *ngIf="f['confirmPassword'].invalid && f['confirmPassword'].touched">
+            Please confirm your password.
+          </p>
+          <p class="field-error" *ngIf="passwordsMismatch && !f['confirmPassword'].invalid">
+            Passwords don't match.
+          </p>
+        </div>
+
+        <label class="checkbox-label terms">
+          <input type="checkbox" formControlName="agreeToTerms" />
+          <span>I agree to the <a class="text-link accent" href="#terms">Terms of Service</a> and <a class="text-link accent" href="#privacy">Privacy Policy</a>.</span>
+        </label>
+        <p class="field-error" *ngIf="f['agreeToTerms'].invalid && f['agreeToTerms'].touched">
+          You need to accept the terms to continue.
+        </p>
+
+        <button type="submit" class="btn btn-primary">CREATE ACCOUNT <span class="chevron">›</span></button>
+      </form>
+
+      <p class="switch-line">
+        Already growing with us?
+        <a class="text-link accent" routerLink="/login">Sign in</a>
+      </p>
+    </div>
+  </div>
+</section>

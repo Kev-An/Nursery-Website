@@ -20,7 +20,7 @@ interface HeroStat {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  brandName = 'Verdant & Co.';
+  brandName = 'Plants & Co.';
 
   navLinks: NavLink[] = [
     { label: 'Shop', href: '#shop' },

@@ -1,0 +1,74 @@
+<section class="auth-body">
+  <div class="auth-visual" [style.background-image]="'url(' + visualImageUrl + ')'">
+    <div class="visual-overlay"></div>
+    <div class="visual-content">
+      <p class="visual-eyebrow">{{ visualEyebrow }}</p>
+      <p class="visual-quote">{{ visualQuote }}</p>
+    </div>
+  </div>
+
+  <div class="auth-form-panel">
+    <div class="auth-card">
+      <p class="eyebrow">— {{ eyebrow }}</p>
+      <h1 class="headline">{{ headline }}</h1>
+      <p class="subtext">{{ subtext }}</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+          <label for="email">EMAIL</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="you@example.com"
+            [class.invalid]="f['email'].invalid && f['email'].touched"
+          />
+          <p class="field-error" *ngIf="f['email'].invalid && f['email'].touched">
+            <ng-container *ngIf="f['email'].errors?.['required']">Email is required.</ng-container>
+            <ng-container *ngIf="f['email'].errors?.['email']">Enter a valid email address.</ng-container>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="password">PASSWORD</label>
+          <div class="input-with-action">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="••••••••"
+              [class.invalid]="f['password'].invalid && f['password'].touched"
+            />
+            <button
+              type="button"
+              class="ghost-toggle"
+              (click)="togglePassword()"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            >
+              {{ showPassword ? 'HIDE' : 'SHOW' }}
+            </button>
+          </div>
+          <p class="field-error" *ngIf="f['password'].invalid && f['password'].touched">
+            <ng-container *ngIf="f['password'].errors?.['required']">Password is required.</ng-container>
+            <ng-container *ngIf="f['password'].errors?.['minlength']">Must be at least 8 characters.</ng-container>
+          </p>
+        </div>
+
+        <div class="options-row">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="rememberMe" />
+            <span>Remember me</span>
+          </label>
+          <a class="text-link" href="#forgot-password">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary">SIGN IN <span class="chevron">›</span></button>
+      </form>
+
+      <p class="switch-line">
+        New to Plants &amp; Co.?
+        <a class="text-link accent" routerLink="/signup">Create an account</a>
+      </p>
+    </div>
+  </div>
+</section>
