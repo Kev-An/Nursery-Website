@@ -1,44 +1,180 @@
 <section class="shop-section">
+
   <header class="shop-header">
     <div class="header-left">
       <p class="eyebrow">— CURRENT STOCK</p>
       <h1 class="headline">Featured Plants</h1>
     </div>
+
     <div class="search-bar">
-  <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        type="text"
+        placeholder="SEARCH PLANTS..."
+        [(ngModel)]="searchTerm"
+        (input)="applyFilters()"
+      />
 
-  <input
-    type="text"
-    placeholder="SEARCH PLANTS..."
-  />
-
-  <button class="search-btn">
-    SEARCH
-  </button>
-</div>
+      <button
+        class="search-btn"
+        type="button"
+        (click)="applyFilters()"
+      >
+        SEARCH
+      </button>
+    </div>
   </header>
 
-  <div class="plant-grid">
-    <article class="plant-card" *ngFor="let plant of plants">
-      <div class="plant-media">
-        <img [src]="plant.imageUrl" [alt]="plant.name" [style.object-position]="plant.imagePosition ?? 'center'" />
-        <span class="badge">{{ plant.badge }}</span>
+  <div class="shop-filters">
 
-        <button class="add-to-cart" type="button" (click)="addToCart(plant)">
+    <div class="filter-group">
+      <label class="filter-label" for="plantType">
+        Plant Type
+      </label>
+
+      <select
+        id="plantType"
+        class="plant-type-filter"
+        [(ngModel)]="selectedType"
+        (change)="applyFilters()"
+      >
+        <option
+          *ngFor="let type of plantTypes"
+          [value]="type"
+        >
+          {{ type === 'All' ? 'All Plants' : type }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group price-filter">
+      <label class="filter-label" for="priceRange">
+        Price Range
+      </label>
+
+      <input
+        id="priceRange"
+        class="price-slider"
+        type="range"
+        min="0"
+        [max]="maximumPlantPrice"
+        step="100"
+        [(ngModel)]="maxPrice"
+        (input)="applyFilters()"
+      />
+
+      <span class="price-value">
+        ₹{{ maxPrice }}
+      </span>
+
+      <button
+        class="clear-filter"
+        type="button"
+        (click)="clearPriceFilter()"
+      >
+        CLEAR
+      </button>
+    </div>
+
+  </div>
+
+  <div class="plant-grid">
+
+    <article
+      class="plant-card"
+      *ngFor="let plant of paginatedPlants"
+    >
+
+      <div class="plant-media">
+
+        <img
+          [src]="plant.imageUrl"
+          [alt]="plant.name"
+          [style.object-position]="plant.imagePosition ?? 'center'"
+        />
+
+        <span class="badge">
+          {{ plant.badge }}
+        </span>
+
+        <button
+          class="add-to-cart"
+          type="button"
+          (click)="addToCart(plant)"
+        >
           ADD TO CART
         </button>
+
       </div>
 
       <div class="plant-info">
+
         <div class="plant-title-row">
-          <h2 class="plant-name">{{ plant.name }}</h2>
-          <span class="plant-price">${{ plant.price }}</span>
+          <h2 class="plant-name">
+            {{ plant.name }}
+          </h2>
+
+          <span class="plant-price">
+            ₹{{ plant.price }}
+          </span>
         </div>
-        <p class="plant-latin">{{ plant.latinName }}</p>
-        <p class="plant-meta">
-          {{ plant.potSize }} · {{ plant.light }} • {{ plant.water }}
+
+        <p class="plant-latin">
+          {{ plant.latinName }}
         </p>
+
+        <p class="plant-meta">
+          {{ plant.potSize }} ·
+          {{ plant.light }} ·
+          {{ plant.water }}
+        </p>
+
       </div>
+
     </article>
+
   </div>
+
+  <p
+    class="no-results"
+    *ngIf="filteredPlants.length === 0"
+  >
+    NO PLANTS FOUND
+  </p>
+
+  <nav
+    class="pagination"
+    aria-label="Plant pagination"
+    *ngIf="filteredPlants.length > 0"
+  >
+
+    <button
+      class="page-button"
+      type="button"
+      [disabled]="currentPage === 1"
+      (click)="previousPage()"
+    >
+      PREV
+    </button>
+
+    <button
+      *ngFor="let page of pages"
+      class="page-button"
+      type="button"
+      [class.active]="currentPage === page"
+      (click)="goToPage(page)"
+    >
+      {{ page }}
+    </button>
+
+    <button
+      class="page-button"
+      type="button"
+      [disabled]="currentPage === totalPages"
+      (click)="nextPage()"
+    >
+      NEXT
+    </button>
+
+  </nav>
+
 </section>
