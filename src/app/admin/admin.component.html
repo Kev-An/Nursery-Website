@@ -1,0 +1,308 @@
+<div class="admin-container">
+
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">— ADMIN PANEL</p>
+      <h1 class="page-title">Plant Inventory</h1>
+      <p class="page-description">
+        Manage your nursery inventory by adding, updating and removing plants.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="refresh-btn"
+      (click)="loadPlants()"
+      [disabled]="plantsLoading">
+
+      <span class="material-symbols-outlined">refresh</span>
+
+      {{ plantsLoading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </header>
+
+  <!-- ========================= -->
+  <!-- ADD / EDIT FORM -->
+  <!-- ========================= -->
+
+  <section class="card">
+
+    <h2>Add New Plant</h2>
+
+    <form
+      [formGroup]="addPlantForm"
+      (ngSubmit)="onAddPlant()"
+      class="plant-form">
+
+      <div class="form-group">
+        <label>Name</label>
+
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Monstera Deliciosa">
+      </div>
+
+      <div class="form-group">
+        <label>Latin Name</label>
+
+        <input
+          type="text"
+          formControlName="latinName"
+          placeholder="Monstera deliciosa">
+      </div>
+
+      <div class="form-group">
+        <label>Price ($)</label>
+
+        <input
+          type="number"
+          formControlName="price"
+          placeholder="35">
+      </div>
+
+      <div class="form-group">
+        <label>Pot Size (inches)</label>
+
+        <input
+          type="number"
+          formControlName="potSize"
+          placeholder="8">
+      </div>
+
+      <div class="form-group">
+        <label>Light</label>
+
+        <input
+          type="text"
+          formControlName="light"
+          placeholder="Bright Indirect">
+      </div>
+
+      <div class="form-group">
+        <label>Water</label>
+
+        <input
+          type="text"
+          formControlName="water"
+          placeholder="Weekly">
+      </div>
+
+      <div class="form-group">
+        <label>Badge</label>
+
+        <select formControlName="badge">
+
+          <option value="BESTSELLER">
+            BESTSELLER
+          </option>
+
+          <option value="LOWLIGHT">
+            LOWLIGHT
+          </option>
+
+          <option value="STATEMENT">
+            STATEMENT
+          </option>
+
+          <option value="EASYCARE">
+            EASYCARE
+          </option>
+
+        </select>
+      </div>
+
+      <div class="button-row">
+
+        <button
+          class="primary-btn"
+          type="submit"
+          [disabled]="isAddingPlant">
+
+          <span class="material-symbols-outlined">add</span>
+
+          {{ isAddingPlant ? 'Adding...' : 'Add Plant' }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+    <p
+      class="error"
+      *ngIf="addPlantError">
+
+      {{ addPlantError }}
+
+    </p>
+
+  </section>
+
+  <!-- ========================= -->
+  <!-- PLANT TABLE -->
+  <!-- ========================= -->
+
+  <section class="card">
+
+    <h2>Plant Inventory</h2>
+
+    <p
+      class="error"
+      *ngIf="plantsError">
+
+      {{ plantsError }}
+
+    </p>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Name</th>
+
+            <th>Latin Name</th>
+
+            <th>Price</th>
+
+            <th>Pot Size</th>
+
+            <th>Light</th>
+
+            <th>Water</th>
+
+            <th>Badge</th>
+
+            <th>Edit</th>
+
+            <th>Delete</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr
+            *ngFor="let plant of plants">
+
+            <td>
+
+              {{ plant.name }}
+
+            </td>
+
+            <td>
+
+              <em>{{ plant.latinName }}</em>
+
+            </td>
+
+            <td>
+
+              ${{ plant.price }}
+
+            </td>
+
+            <td>
+
+              {{ plant.potSize }}
+
+            </td>
+
+            <td>
+
+              {{ plant.light }}
+
+            </td>
+
+            <td>
+
+              {{ plant.water }}
+
+            </td>
+
+            <td>
+
+              <span class="badge">
+
+                {{ plant.badge }}
+
+              </span>
+
+            </td>
+
+            <td>
+
+              <button
+                class="edit-btn"
+                type="button"
+                (click)="onEditPlant(plant)">
+
+                <span class="material-symbols-outlined">
+                  edit
+                </span>
+
+              </button>
+
+            </td>
+
+            <td>
+
+              <button
+                class="delete-btn"
+                type="button"
+                (click)="onDeletePlant(plant)"
+                [disabled]="deletingPlantId===plant.id">
+
+                <span class="material-symbols-outlined">
+
+                  delete
+
+                </span>
+
+              </button>
+
+            </td>
+
+          </tr>
+
+          <tr
+            *ngIf="!plantsLoading && plants.length===0">
+
+            <td
+              colspan="9"
+              class="empty">
+
+              No plants available.
+
+            </td>
+
+          </tr>
+
+          <tr
+            *ngIf="plantsLoading">
+
+            <td
+              colspan="9"
+              class="empty">
+
+              Loading plants...
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</div>

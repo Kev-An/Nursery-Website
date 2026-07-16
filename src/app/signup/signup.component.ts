@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import {
   AbstractControl,
   FormBuilder,
@@ -8,7 +9,7 @@ import {
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
 
 export interface NavLink {
@@ -33,7 +34,7 @@ function passwordsMatchValidator(): ValidatorFn {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
   brandName = 'Plants & Co.';
@@ -42,33 +43,39 @@ export class SignupComponent {
     { label: 'Home', href: '#home' },
     { label: 'Shop', href: '#shop' },
     { label: 'Care', href: '#care' },
-    { label: 'About', href: '#about' }
+    { label: 'About', href: '#about' },
   ];
 
   eyebrow = 'NEW HERE?';
   headline = 'Create your account';
-  subtext = 'Join a growing community of plant people. Get care reminders, early access to rare drops, and order tracking in one place.';
+  subtext =
+    'Join a growing community of plant people. Get care reminders, early access to rare drops, and order tracking in one place.';
 
-  visualQuote = 'Rare tropicals, native specimens, and the knowledge to help them thrive.';
+  visualQuote =
+    'Rare tropicals, native specimens, and the knowledge to help them thrive.';
   visualEyebrow = 'EST. 2009 — PUNE, INDIA';
   visualImageUrl =
     'https://plus.unsplash.com/premium_photo-1680630201319-a028d6b84cf3?q=80&w=2111&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
 
   showPassword = false;
   showConfirmPassword = false;
+  isLoading = false;
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+  ) {
     this.form = this.fb.group(
       {
         fullName: ['', [Validators.required, Validators.minLength(2)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required]],
-        agreeToTerms: [false, [Validators.requiredTrue]]
+        agreeToTerms: [false, [Validators.requiredTrue]],
       },
-      { validators: passwordsMatchValidator() }
+      { validators: passwordsMatchValidator() },
     );
   }
 
@@ -96,7 +103,24 @@ export class SignupComponent {
       this.form.markAllAsTouched();
       return;
     }
-    // Replace with a real auth service call
-    console.log('Signup submitted:', this.form.value);
+
+    this.isLoading = true;
+
+    this.http
+      .post('http://localhost:5555/api/users', this.form.value)
+      .subscribe({
+        // Add : any here
+        next: (response: any) => {
+          console.log('Account created successfully', response);
+          alert('Signup successful!');
+          this.isLoading = false;
+        },
+        // Add : any here
+        error: (error: any) => {
+          console.error('Error during signup', error);
+          alert('Signup failed. Please try again.');
+          this.isLoading = false;
+        },
+      });
   }
 }
