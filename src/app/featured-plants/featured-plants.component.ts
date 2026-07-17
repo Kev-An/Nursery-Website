@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 export interface Plant {
+  id: number;
   name: string;
   latinName: string;
   price: number;
@@ -13,6 +15,13 @@ export interface Plant {
   badge: string;
   imageUrl: string;
   imagePosition?: string;
+}
+
+export interface CartItem {
+  id: number;
+  plantId: number;
+  quantity: number;
+  // extend with whatever fields your CartItem DTO actually returns
 }
 
 @Component({
@@ -36,6 +45,11 @@ export class FeaturedPlantsComponent implements OnInit {
   // REST API
   baseUrl: string = 'http://localhost:5555';
   endpoint: string = '/api/plants';
+  cartEndpoint: string = '/add';
+
+  // add-to-cart state
+  addingToCartId: number | null = null;
+  cartError: string | null = null;
 
   plantTypes: string[] = [
     'All',
@@ -45,7 +59,10 @@ export class FeaturedPlantsComponent implements OnInit {
     'EASY CARE',
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.getPlants();
@@ -137,6 +154,22 @@ export class FeaturedPlantsComponent implements OnInit {
   }
 
   addToCart(plant: Plant): void {
-    console.log('Added to cart:', plant.name);
+    this.cartError = null;
+    this.addingToCartId = plant.id;
+
+    this.http
+      .post<CartItem>(`http://localhost:5555/cart/add/${plant.id}`, {})
+      .subscribe({
+        next: (cartItem) => {
+          console.log('Added to cart:', cartItem);
+          this.addingToCartId = null;
+          this.router.navigate(['/cart']);
+        },
+        error: (error) => {
+          console.error('Error adding to cart:', error);
+          this.cartError = `Couldn't add ${plant.name} to your cart. Please try again.`;
+          this.addingToCartId = null;
+        },
+      });
   }
 }

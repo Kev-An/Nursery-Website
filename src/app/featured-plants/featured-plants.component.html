@@ -77,6 +77,13 @@
 
   </div>
 
+  <p
+    class="cart-error"
+    *ngIf="cartError"
+  >
+    {{ cartError }}
+  </p>
+
   <div class="plant-grid">
 
     <article
@@ -99,9 +106,10 @@
         <button
           class="add-to-cart"
           type="button"
+          [disabled]="addingToCartId === plant.id"
           (click)="addToCart(plant)"
         >
-          ADD TO CART
+          {{ addingToCartId === plant.id ? 'ADDING...' : 'ADD TO CART' }}
         </button>
 
       </div>

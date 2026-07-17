@@ -1,5 +1,4 @@
 <div class="admin-container">
-
   <header class="page-header">
     <div>
       <p class="eyebrow">— ADMIN PANEL</p>
@@ -15,21 +14,21 @@
   <!-- ========================= -->
 
   <section class="card">
-
-    <h2>{{ editingPlantId ? 'Edit Plant' : 'Add New Plant' }}</h2>
+    <h2>{{ editingPlantId ? "Edit Plant" : "Add New Plant" }}</h2>
 
     <form
       [formGroup]="addPlantForm"
       (ngSubmit)="onAddPlant()"
-      class="plant-form">
-
+      class="plant-form"
+    >
       <div class="form-group">
         <label>Name</label>
 
         <input
           type="text"
           formControlName="name"
-          placeholder="Monstera Deliciosa">
+          placeholder="Monstera Deliciosa"
+        />
       </div>
 
       <div class="form-group">
@@ -38,25 +37,20 @@
         <input
           type="text"
           formControlName="latinName"
-          placeholder="Monstera deliciosa">
+          placeholder="Monstera deliciosa"
+        />
       </div>
 
       <div class="form-group">
-        <label>Price ($)</label>
+        <label>Price (₹)</label>
 
-        <input
-          type="number"
-          formControlName="price"
-          placeholder="35">
+        <input type="number" formControlName="price" placeholder="35" />
       </div>
 
       <div class="form-group">
         <label>Pot Size (inches)</label>
 
-        <input
-          type="number"
-          formControlName="potSize"
-          placeholder="8">
+        <input type="number" formControlName="potSize" placeholder="8" />
       </div>
 
       <div class="form-group">
@@ -65,79 +59,59 @@
         <input
           type="text"
           formControlName="light"
-          placeholder="Bright Indirect">
+          placeholder="Bright Indirect"
+        />
       </div>
 
       <div class="form-group">
         <label>Water</label>
 
-        <input
-          type="text"
-          formControlName="water"
-          placeholder="Weekly">
+        <input type="text" formControlName="water" placeholder="Weekly" />
       </div>
 
       <div class="form-group">
         <label>Badge</label>
 
         <select formControlName="badge">
+          <option value="BESTSELLER">BESTSELLER</option>
 
-          <option value="BESTSELLER">
-            BESTSELLER
-          </option>
+          <option value="LOWLIGHT">LOWLIGHT</option>
 
-          <option value="LOWLIGHT">
-            LOWLIGHT
-          </option>
+          <option value="STATEMENT">STATEMENT</option>
 
-          <option value="STATEMENT">
-            STATEMENT
-          </option>
-
-          <option value="EASYCARE">
-            EASYCARE
-          </option>
-
+          <option value="EASYCARE">EASYCARE</option>
         </select>
       </div>
 
       <div class="button-row">
-
         <button
           class="secondary-btn"
           type="button"
           (click)="cancelEdit()"
-          [disabled]="isAddingPlant">
-
+          [disabled]="isAddingPlant"
+        >
           <span class="material-symbols-outlined">close</span>
 
           Clear
-
         </button>
 
-        <button
-          class="primary-btn"
-          type="submit"
-          [disabled]="isAddingPlant">
-
+        <button class="primary-btn" type="submit" [disabled]="isAddingPlant">
           <span class="material-symbols-outlined">add</span>
 
-          {{ isAddingPlant ? 'Adding...' : (editingPlantId ? 'Update Plant' : 'Add Plant') }}
-
+          {{
+            isAddingPlant
+              ? "Adding..."
+              : editingPlantId
+                ? "Update Plant"
+                : "Add Plant"
+          }}
         </button>
-
       </div>
-
     </form>
 
-    <p
-      class="error"
-      *ngIf="addPlantError">
-
+    <p class="error" *ngIf="addPlantError">
       {{ addPlantError }}
-
     </p>
-
   </section>
 
   <!-- ========================= -->
@@ -145,40 +119,29 @@
   <!-- ========================= -->
 
   <section class="card">
-
     <div class="card-header-row">
-
       <h2>Plant Inventory</h2>
 
       <button
         type="button"
         class="refresh-btn"
         (click)="loadPlants()"
-        [disabled]="plantsLoading">
-
+        [disabled]="plantsLoading"
+      >
         <span class="material-symbols-outlined">refresh</span>
 
-        {{ plantsLoading ? 'Loading...' : 'Refresh' }}
+        {{ plantsLoading ? "Loading..." : "Refresh" }}
       </button>
-
     </div>
 
-    <p
-      class="error"
-      *ngIf="plantsError">
-
+    <p class="error" *ngIf="plantsError">
       {{ plantsError }}
-
     </p>
 
     <div class="table-wrapper">
-
       <table>
-
         <thead>
-
           <tr>
-
             <th>Name</th>
 
             <th>Latin Name</th>
@@ -196,129 +159,70 @@
             <th>Edit</th>
 
             <th>Delete</th>
-
           </tr>
-
         </thead>
 
         <tbody>
-
-          <tr
-            *ngFor="let plant of plants; trackBy: trackByPlant">
-
+          <tr *ngFor="let plant of plants; trackBy: trackByPlant">
             <td>
-
               {{ plant.name }}
-
             </td>
 
             <td>
-
               <em>{{ plant.latinName }}</em>
-
             </td>
 
-            <td>
-
-              ${{ plant.price }}
-
-            </td>
+            <td>₹{{ plant.price }}</td>
 
             <td>
-
               {{ plant.potSize }}
-
             </td>
 
             <td>
-
               {{ plant.light }}
-
             </td>
 
             <td>
-
               {{ plant.water }}
-
             </td>
 
             <td>
-
               <span class="badge">
-
                 {{ plant.badge }}
-
               </span>
-
             </td>
 
             <td>
-
               <button
                 class="edit-btn"
                 type="button"
-                (click)="onEditPlant(plant)">
-
-                <span class="material-symbols-outlined">
-                  edit
-                </span>
-
+                (click)="onEditPlant(plant)"
+              >
+                <span class="material-symbols-outlined"> edit </span>
               </button>
-
             </td>
 
             <td>
-
               <button
                 class="delete-btn"
                 type="button"
                 (click)="onDeletePlant(plant)"
-                [disabled]="deletingPlantId===plant.id">
-
-                <span class="material-symbols-outlined">
-
-                  delete
-
-                </span>
-
+                [disabled]="deletingPlantId === plant.id"
+              >
+                <span class="material-symbols-outlined"> delete </span>
               </button>
-
             </td>
-
           </tr>
 
-          <tr
-            *ngIf="!plantsLoading && plants.length===0">
-
-            <td
-              colspan="9"
-              class="empty">
-
-              No plants available.
-
-            </td>
-
+          <tr *ngIf="!plantsLoading && plants.length === 0">
+            <td colspan="9" class="empty">No plants available.</td>
           </tr>
 
-          <tr
-            *ngIf="plantsLoading">
-
-            <td
-              colspan="9"
-              class="empty">
-
-              Loading plants...
-
-            </td>
-
+          <tr *ngIf="plantsLoading">
+            <td colspan="9" class="empty">Loading plants...</td>
           </tr>
-
         </tbody>
-
       </table>
-
     </div>
-
   </section>
-
 </div>
