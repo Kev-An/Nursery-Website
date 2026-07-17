@@ -163,7 +163,6 @@ export class FeaturedPlantsComponent implements OnInit {
         next: (cartItem) => {
           console.log('Added to cart:', cartItem);
           this.addingToCartId = null;
-          this.router.navigate(['/cart']);
         },
         error: (error) => {
           console.error('Error adding to cart:', error);

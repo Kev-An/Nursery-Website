@@ -13,50 +13,58 @@
         <span>TOTAL</span>
       </div>
 
-      <div
-        class="cart-items-list"
-        *ngIf="cartService.items.length > 0; else emptyCart"
-      >
-        <div class="cart-item-row" *ngFor="let item of cartService.items">
-          <div class="item-details-col">
-            <div class="item-image">
-              <img [src]="item.imageUrl" [alt]="item.name" />
-            </div>
-            <div class="item-info">
-              <h3>{{ item.name }}</h3>
-              <p>{{ item.variant }}</p>
-            </div>
-          </div>
+      <p class="loading-msg" *ngIf="loading">Loading your cart...</p>
 
-          <div class="item-qty-col">
-            <div class="qty-selector">
-              <button (click)="cartService.decrementQty(item)">-</button>
-              <span>{{ item.quantity }}</span>
-              <button (click)="cartService.incrementQty(item)">+</button>
+      <p class="error-msg" *ngIf="error">{{ error }}</p>
+
+      <ng-container *ngIf="!loading && !error">
+        <div class="cart-items-list" *ngIf="items.length > 0; else emptyCart">
+          <div class="cart-item-row" *ngFor="let item of items">
+            <div class="item-details-col">
+              <div class="item-image">
+                <!-- Replace with item.plant.imageUrl when available -->
+                <img
+                  src="https://placehold.co/120x120?text=Plant"
+                  [alt]="item.plant.name"
+                />
+              </div>
+
+              <div class="item-info">
+                <h3>{{ item.plant.name }}</h3>
+                <p>{{ item.plant.latinName }}</p>
+              </div>
             </div>
-          </div>
 
-          <div class="item-unit-col">${{ item.price }}</div>
+            <div class="item-qty-col">
+              <div class="qty-selector">
+                <button (click)="decrementQty(item)">-</button>
+                <span>{{ item.quantity }}</span>
+                <button (click)="incrementQty(item)">+</button>
+              </div>
+            </div>
 
-          <div class="item-total-col">
-            <strong>${{ (item.price * item.quantity).toFixed(2) }}</strong>
-            <button
-              class="remove-btn"
-              (click)="cartService.removeFromCart(item)"
-            >
-              &#10005;
-            </button>
+            <div class="item-unit-col">${{ item.plant.price.toFixed(2) }}</div>
+
+            <div class="item-total-col">
+              <strong>
+                ${{ (item.plant.price * item.quantity).toFixed(2) }}
+              </strong>
+
+              <button class="remove-btn" (click)="removeFromCart(item)">
+                &#10005;
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <ng-template #emptyCart>
-        <p class="empty-msg">Your cart is empty.</p>
-      </ng-template>
+        <ng-template #emptyCart>
+          <p class="empty-msg">Your cart is empty.</p>
+        </ng-template>
+      </ng-container>
 
-      <a class="continue-shopping" routerLink="/featured-plants"
-        >&lt; CONTINUE SHOPPING</a
-      >
+      <a class="continue-shopping" routerLink="/featured-plants">
+        &lt; CONTINUE SHOPPING
+      </a>
     </div>
 
     <div class="order-summary-section">
@@ -65,36 +73,31 @@
 
         <div class="summary-row">
           <span>
-            Subtotal ({{ cartService.items.length }} item{{
-              cartService.items.length !== 1 ? "s" : ""
+            Subtotal ({{ items.length }} item{{
+              items.length !== 1 ? "s" : ""
             }})
           </span>
+          <span>${{ getSubtotal().toFixed(2) }}</span>
         </div>
 
         <div class="summary-row">
           <span>Shipping</span>
-          <span>${{ cartService.shippingCost.toFixed(2) }}</span>
+          <span>${{ shippingCost.toFixed(2) }}</span>
         </div>
 
         <hr class="divider" />
 
         <div class="summary-row total-row">
           <span>Total</span>
-          ${{ cartService.getTotal().toFixed(2) }}
+          <span>${{ getTotal().toFixed(2) }}</span>
         </div>
 
-        <p
-          class="shipping-msg"
-          *ngIf="cartService.getAmountToFreeShipping() > 0"
-        >
-          Add ${{ cartService.getAmountToFreeShipping().toFixed(2) }} more for
-          free shipping.
+        <p class="shipping-msg" *ngIf="getAmountToFreeShipping() > 0">
+          Add ${{ getAmountToFreeShipping().toFixed(2) }} more for free
+          shipping.
         </p>
 
-        <p
-          class="shipping-msg success"
-          *ngIf="cartService.getAmountToFreeShipping() === 0"
-        >
+        <p class="shipping-msg success" *ngIf="getAmountToFreeShipping() === 0">
           You've unlocked free shipping!
         </p>
 
