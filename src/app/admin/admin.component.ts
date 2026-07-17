@@ -108,6 +108,7 @@ export class AdminDashboardComponent implements OnInit {
     }
 
     this.isAddingPlant = true;
+    this.addPlantError = null;
 
     const payload = this.addPlantForm.value;
 
@@ -172,6 +173,7 @@ export class AdminDashboardComponent implements OnInit {
 
   onEditPlant(plant: Plant): void {
     this.editingPlantId = plant.id;
+    this.addPlantError = null;
 
     this.addPlantForm.patchValue({
       name: plant.name,
@@ -205,6 +207,8 @@ export class AdminDashboardComponent implements OnInit {
 
     this.isAddingPlant = false;
 
+    this.addPlantError = null;
+
     this.addPlantForm.reset({
       name: '',
 
@@ -228,15 +232,22 @@ export class AdminDashboardComponent implements OnInit {
 
   onDeletePlant(plant: Plant): void {
     this.deletingPlantId = plant.id;
+    this.plantsError = null;
 
     this.http.delete(`${this.apiUrl}/${plant.id}`).subscribe({
       next: () => {
         this.plants = this.plants.filter((p) => p.id !== plant.id);
 
         this.deletingPlantId = null;
+
+        if (this.editingPlantId === plant.id) {
+          this.cancelEdit();
+        }
       },
 
       error: () => {
+        this.plantsError = 'Unable to delete plant.';
+
         this.deletingPlantId = null;
       },
     });

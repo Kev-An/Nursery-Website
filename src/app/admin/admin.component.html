@@ -8,17 +8,6 @@
         Manage your nursery inventory by adding, updating and removing plants.
       </p>
     </div>
-
-    <button
-      type="button"
-      class="refresh-btn"
-      (click)="loadPlants()"
-      [disabled]="plantsLoading">
-
-      <span class="material-symbols-outlined">refresh</span>
-
-      {{ plantsLoading ? 'Loading...' : 'Refresh' }}
-    </button>
   </header>
 
   <!-- ========================= -->
@@ -27,7 +16,7 @@
 
   <section class="card">
 
-    <h2>Add New Plant</h2>
+    <h2>{{ editingPlantId ? 'Edit Plant' : 'Add New Plant' }}</h2>
 
     <form
       [formGroup]="addPlantForm"
@@ -115,13 +104,25 @@
       <div class="button-row">
 
         <button
+          class="secondary-btn"
+          type="button"
+          (click)="cancelEdit()"
+          [disabled]="isAddingPlant">
+
+          <span class="material-symbols-outlined">close</span>
+
+          Clear
+
+        </button>
+
+        <button
           class="primary-btn"
           type="submit"
           [disabled]="isAddingPlant">
 
           <span class="material-symbols-outlined">add</span>
 
-          {{ isAddingPlant ? 'Adding...' : 'Add Plant' }}
+          {{ isAddingPlant ? 'Adding...' : (editingPlantId ? 'Update Plant' : 'Add Plant') }}
 
         </button>
 
@@ -145,7 +146,22 @@
 
   <section class="card">
 
-    <h2>Plant Inventory</h2>
+    <div class="card-header-row">
+
+      <h2>Plant Inventory</h2>
+
+      <button
+        type="button"
+        class="refresh-btn"
+        (click)="loadPlants()"
+        [disabled]="plantsLoading">
+
+        <span class="material-symbols-outlined">refresh</span>
+
+        {{ plantsLoading ? 'Loading...' : 'Refresh' }}
+      </button>
+
+    </div>
 
     <p
       class="error"
@@ -188,7 +204,7 @@
         <tbody>
 
           <tr
-            *ngFor="let plant of plants">
+            *ngFor="let plant of plants; trackBy: trackByPlant">
 
             <td>
 

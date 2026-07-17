@@ -87,6 +87,17 @@
     font-size: 30px;
 }
 
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.card-header-row h2 {
+    margin-bottom: 0;
+}
+
 /* ================= FORM ================= */
 
 .plant-form {
@@ -128,12 +139,14 @@ select:focus {
     grid-column: span 4;
     display: flex;
     justify-content: flex-end;
+    gap: 14px;
     margin-top: 12px;
 }
 
 /* ================= BUTTONS ================= */
 
 .primary-btn,
+.secondary-btn,
 .refresh-btn,
 .edit-btn,
 .delete-btn {
@@ -155,6 +168,29 @@ select:focus {
 
 .primary-btn:hover {
     background: var(--terracotta-dark);
+}
+
+.primary-btn:disabled,
+.secondary-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.secondary-btn:hover {
+    border-color: var(--muted);
+    background: #faf8f4;
 }
 
 .refresh-btn {
@@ -283,12 +319,20 @@ tbody tr:hover {
 
     .button-row {
         grid-column: span 1;
+        flex-direction: column-reverse;
         justify-content: stretch;
     }
 
-    .primary-btn {
+    .primary-btn,
+    .secondary-btn {
         width: 100%;
         justify-content: center;
+    }
+
+    .card-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
     }
 
 }
