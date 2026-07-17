@@ -92,21 +92,11 @@
           <span>${{ getTotal().toFixed(2) }}</span>
         </div>
 
-        <p class="shipping-msg" *ngIf="getAmountToFreeShipping() > 0">
-          Add ${{ getAmountToFreeShipping().toFixed(2) }} more for free
-          shipping.
-        </p>
-
-        <p class="shipping-msg success" *ngIf="getAmountToFreeShipping() === 0">
-          You've unlocked free shipping!
-        </p>
+        
 
         <div class="promo-code-container">
-          <label>PROMO CODE</label>
-          <div class="promo-input-group">
-            <input type="text" placeholder="VERDANT20" />
-            <button class="apply-btn">APPLY</button>
-          </div>
+       
+          
         </div>
 
         <button class="checkout-btn">PROCEED TO CHECKOUT &gt;</button>
