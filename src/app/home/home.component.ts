@@ -38,7 +38,7 @@ export class HomeComponent {
   ];
 
   description =
-    'A curated nursery and botanical studio in the heart of Portland. Rare tropicals, native specimens, and the knowledge to help them thrive.';
+    'A curated nursery and botanical studio in the heart of Pune. Rare tropicals, native specimens, and the knowledge to help them thrive.';
 
   primaryCta = 'SHOP COLLECTION';
   secondaryCta = 'ABOUT US';
