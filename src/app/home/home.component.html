@@ -1,33 +1,232 @@
+<!-- Existing Hero Section -->
 <section class="hero" [style.background-image]="'url(' + heroImageUrl + ')'">
   <div class="hero-overlay"></div>
-
   <div class="hero-content">
     <p class="eyebrow">{{ eyebrow }}</p>
-
     <h1 class="headline">
-      <span
-        *ngFor="let line of headlineLines"
-        class="headline-line"
-        [class.accent]="line.style === 'accent'"
-      >{{ line.text }}</span>
+      <span *ngFor="let line of headlineLines" class="headline-line" [class.accent]="line.style === 'accent'">{{
+        line.text }}</span>
     </h1>
-
     <p class="description">{{ description }}</p>
-
     <div class="cta-row">
-      <button routerLink="/featured-plants" class="btn btn-primary" type="button" (click)="onPrimaryCta()">
-        {{ primaryCta }} <span class="chevron">›</span>
-      </button>
-      <button routerLink="/about" class="btn btn-secondary" type="button" (click)="onSecondaryCta()">
-        {{ secondaryCta }}
-      </button>
+      <button routerLink="/featured-plants" class="btn btn-primary" (click)="onPrimaryCta()">{{ primaryCta }}
+        <span>›</span></button>
+      <button routerLink="/about" class="btn btn-secondary" (click)="onSecondaryCta()">{{ secondaryCta }}</button>
     </div>
   </div>
-
   <ul class="stat-list">
     <li class="stat-row" *ngFor="let stat of stats">
       <span class="stat-index">{{ stat.index }}</span>
       <span class="stat-label">{{ stat.label }}</span>
     </li>
   </ul>
+</section>
+<!-- ==========================================================
+     TESTIMONIALS
+========================================================== -->
+
+<section class="testimonials-section">
+
+  <!-- Decorative Background -->
+  <div class="section-glow"></div>
+
+  <!-- Header -->
+  <div class="testimonials-header">
+
+    <span class="section-label">
+      — STORIES FROM BEAUTIFUL HOMES
+    </span>
+
+    <h2>
+      More Than Plants.
+      <br>
+      <em>Moments That Grow.</em>
+    </h2>
+
+    <p>
+      Every order becomes part of someone's home. From first apartments to
+      family living rooms, discover how thousands of customers have brought
+      nature indoors with Plants &amp; Co.
+    </p>
+
+  </div>
+
+
+  <!-- Premium Stats -->
+
+  <div class="stats-strip">
+
+    <div class="stat-item">
+      <span class="stat-number">694K+</span>
+      <span class="stat-text">
+        Happy Plant Parents
+      </span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="stat-item">
+      <span class="stat-number">4.9★</span>
+      <span class="stat-text">
+        Average Rating
+      </span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="stat-item">
+      <span class="stat-number">2018</span>
+      <span class="stat-text">
+        Growing Homes Since
+      </span>
+    </div>
+
+  </div>
+
+
+  <!-- Featured Review -->
+
+  <div class="featured-review">
+
+    <div class="featured-image">
+
+      <img
+        src="assets/images/reviews/featured-review.jpg"
+        alt="Featured Customer">
+
+    </div>
+
+    <div class="featured-content">
+
+      <span class="featured-label">
+        FEATURED STORY
+      </span>
+
+      <div class="featured-stars">
+        ★★★★★
+      </div>
+
+      <blockquote>
+
+        “I expected a beautiful plant.
+        What arrived completely changed our living room.
+
+        The packaging was flawless, every leaf was healthy,
+        and within minutes it became the centerpiece of our home.
+        It honestly felt like opening a luxury product.”
+
+      </blockquote>
+
+      <div class="featured-user">
+
+        <h3>
+          Sarah Williams
+        </h3>
+
+        <span>
+          Monstera Deliciosa • Pune
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Review Grid -->
+
+  <div class="reviews-grid">
+
+    <article
+      class="review-card"
+      *ngFor="let review of productReviews">
+
+      <div
+        class="review-photo"
+        *ngIf="review.imageUrl">
+
+        <img
+          [src]="review.imageUrl"
+          [alt]="review.productName">
+
+      </div>
+
+      <div class="review-body">
+
+        <div class="review-stars">
+
+          <span
+            *ngFor="let star of [1,2,3,4,5]"
+            [class.filled]="star <= review.rating">
+
+            ★
+
+          </span>
+
+        </div>
+
+        <h3>
+
+          {{review.title}}
+
+        </h3>
+
+        <p>
+
+          "{{review.quote}}"
+
+        </p>
+
+      </div>
+
+      <div class="review-footer">
+
+        <div class="avatar">
+
+          {{review.userName[0]}}
+
+        </div>
+
+        <div>
+
+          <h4>
+
+            {{review.userName}}
+
+          </h4>
+
+          <span>
+
+            {{review.location}}
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+
+  <!-- Bottom Statement -->
+
+  <div class="testimonial-footer">
+
+    <div class="line"></div>
+
+    <p>
+
+      Crafted with care.
+      Delivered with love.
+      Enjoyed for years.
+
+    </p>
+
+    <div class="line"></div>
+
+  </div>
+
 </section>
