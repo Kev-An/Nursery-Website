@@ -53,6 +53,12 @@ export class LoginComponent {
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
+  continueAsGuest(): void {
+    localStorage.setItem('user-name', 'Guest');
+    localStorage.setItem('role', 'GUEST');
+
+    this.router.navigate(['/']);
+  }
 
   onSubmit(): void {
     if (this.form.invalid) {
@@ -69,12 +75,12 @@ export class LoginComponent {
         next: (response: any) => {
           console.log('Login successful', response);
           localStorage.setItem('user-name', response.fullName);
-          localStorage.setItem('role',response.userRole);
+          localStorage.setItem('role', response.userRole);
           console.log(
             'user name-------------------',
             localStorage.getItem('user-name'),
             'role-------------------------',
-            localStorage.getItem('role')
+            localStorage.getItem('role'),
           );
 
           alert('Login successful!');

@@ -146,3 +146,30 @@ nav a {
         font-size: 18px;
     }
 }
+.user-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 14px;
+    border: 1px solid #d9cfb9;
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    color: #263626;
+
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    transition: all 0.25s ease;
+}
+
+.user-name:hover {
+    background: #bd6538;
+    border-color: #bd6538;
+    color: #ffffff;
+}

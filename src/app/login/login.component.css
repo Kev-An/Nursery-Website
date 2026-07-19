@@ -389,3 +389,18 @@ form {
     font-size: 28px;
   }
 }
+.btn-secondary {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid #d6c3a5;
+  background: transparent;
+  color: #d6c3a5;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  background: #d6c3a5;
+  color: #1b1b1b;
+}

@@ -14,7 +14,15 @@
     </div>
 
     <div class="nav-actions">
+
+        <!-- User Name -->
+        <span class="user-name">
+            {{ userName }}
+        </span>
+
+        <!-- Show Cart only for logged-in users -->
         <a
+            *ngIf="role !== 'GUEST'"
             routerLink="cart"
             class="icon-button"
             aria-label="Cart"
@@ -23,6 +31,24 @@
                 shopping_cart
             </span>
         </a>
+
+        <!-- Login button for guests -->
+        <a
+            *ngIf="role === 'GUEST'"
+            routerLink="/login"
+            class="login-btn"
+        >
+            Login
+        </a>
+
+        <!-- Logout button for logged-in users -->
+        <button
+            *ngIf="role !== 'GUEST'"
+            class="logout-btn"
+            (click)="logout()"
+        >
+            Logout
+        </button>
 
     </div>
 </nav>
