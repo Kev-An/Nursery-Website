@@ -584,7 +584,7 @@
 
   font-family: var(--font-display);
 
-  font-size: clamp(32px, 3vw, 46px);
+  font-size: clamp(24px, 1vw, 30px);
 
   line-height: 1.35;
 

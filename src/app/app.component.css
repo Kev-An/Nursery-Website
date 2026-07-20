@@ -173,3 +173,11 @@ nav a {
     border-color: #bd6538;
     color: #ffffff;
 }
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px;
+    color: #263626;
+}
