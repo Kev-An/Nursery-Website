@@ -47,7 +47,7 @@
 
             <div class="item-total-col">
               <strong>
-                ${{ (item.plant.price * item.quantity).toFixed(2) }}
+                ₹{{ (item.plant.price * item.quantity).toFixed(2) }}
               </strong>
 
               <button class="remove-btn" (click)="removeFromCart(item)">
@@ -77,19 +77,19 @@
               items.length !== 1 ? "s" : ""
             }})
           </span>
-          <span>${{ getSubtotal().toFixed(2) }}</span>
+          <span>₹{{ getSubtotal().toFixed(2) }}</span>
         </div>
 
         <div class="summary-row">
           <span>Shipping</span>
-          <span>${{ shippingCost.toFixed(2) }}</span>
+          <span>₹{{ shippingCost.toFixed(2) }}</span>
         </div>
 
         <hr class="divider" />
 
         <div class="summary-row total-row">
           <span>Total</span>
-          <span>${{ getTotal().toFixed(2) }}</span>
+          <span>₹{{ getTotal().toFixed(2) }}</span>
         </div>
 
         
