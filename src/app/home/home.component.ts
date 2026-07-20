@@ -153,7 +153,7 @@ export class HomeComponent implements OnInit {
     { text: 'People', style: 'solid' },
   ];
   description =
-    'A curated nursery and botanical studio in the heart of Portland.';
+    'A curated nursery and botanical studio in the heart of Pune.';
   primaryCta = 'SHOP COLLECTION';
   secondaryCta = 'ABOUT US';
   heroImageUrl =
